@@ -45,8 +45,10 @@ podTemplate(containers: [
             echo "commit message = ${env.GIT_COMMIT_MSG}"
             }
             if ((sh (script: 'git log -1 --pretty=%cn ${GIT_COMMIT}', returnStdout: true).trim()) == "branko"){
-              currentBuild.result = 'SUCCESS'
-              return
+              script {
+              currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
+              sleep(1)   // Interrupt is not blocking and does not take effect immediately.
+              }
             }
         }
         stage('Print something'){

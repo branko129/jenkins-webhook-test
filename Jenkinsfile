@@ -36,10 +36,14 @@ podTemplate(containers: [
             script{
             latestTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
             latestHash = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
+            env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+            env.GIT_AUTHOR = sh (script: 'git log -1 --pretty=%cn ${GIT_COMMIT}', returnStdout: true).trim()
             env.BUILD_VERSION = latestTag
             env.HASH_TAG = latestHash
             echo "env-BUILD_VERSION = ${env.BUILD_VERSION}"
             echo "env-HASH_TAG = ${env.HASH_TAG}"
+            echo "author = ${env.GIT_AUTHOR}"
+            echo "commit message = ${env.GIT_COMMIT_MSG}"
             }
         }
     }

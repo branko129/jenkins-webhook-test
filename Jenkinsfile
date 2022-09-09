@@ -32,7 +32,7 @@ podTemplate(containers: [
         stage('Get a Java project from git') {
             sh"git config --global http.sslverify false"
             sh"export GIT_SSL_NO_VERIFY=true"
-            git branch: 'master', credentialsId: 'acs-pat', url: 'https://gitlab.nortal.com/neos1/acs-service.git'
+            git branch: 'main', url: 'https://github.com/branko129/jenkins-webhook-test.git'
             script{
             latestTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
             latestHash = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()

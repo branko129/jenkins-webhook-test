@@ -21,7 +21,7 @@ podTemplate(containers: [
   envVars: [
   secretEnvVar(key: 'uname', secretName: 'credrl', secretKey: 'username'),
   secretEnvVar(key: 'pwd', secretName: 'credrl', secretKey: 'password'),
-  secretEnvVar(key: 'artifactoryUser', secretName: 'credrl', secretKey: 'username1')
+  secretEnvVar(key: 'artifactoryUser', secretName: 'credrl', secretKey: 'username')
   ],
   imagePullSecrets:
   ['regcred']
@@ -47,6 +47,7 @@ podTemplate(containers: [
             if ((sh (script: 'git log -1 --pretty=%cn ${GIT_COMMIT}', returnStdout: true).trim()) == "branko"){
               script {
               echo "author = ${env.GIT_AUTHOR}"
+              echo "commiter je branko, prekini skriptu"
               currentBuild.result = 'ABORTED'
               error("Aborting the build.")
               }
@@ -54,7 +55,7 @@ podTemplate(containers: [
         }
         stage('Print something'){
            script{
-              echo "Commiter nije branko"
+              echo "Commiter nije branko "
            }
         }
     }

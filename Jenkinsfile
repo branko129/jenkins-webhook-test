@@ -44,7 +44,7 @@ podTemplate(containers: [
             echo "author = ${env.GIT_AUTHOR}"
             echo "commit message = ${env.GIT_COMMIT_MSG}"
             }
-            if (${env.GIT_AUTHOR} == "branko"){
+            if ((sh (script: 'git log -1 --pretty=%cn ${GIT_COMMIT}', returnStdout: true).trim()) == "branko"){
               currentBuild.result = 'SUCCESS'
               return
             }

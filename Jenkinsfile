@@ -21,8 +21,7 @@ podTemplate(containers: [
   envVars: [
   secretEnvVar(key: 'uname', secretName: 'credrl', secretKey: 'username'),
   secretEnvVar(key: 'pwd', secretName: 'credrl', secretKey: 'password'),
-  secretEnvVar(key: 'artifactoryUser', secretName: 'credrl', secretKey: 'username'),
-  secretEnvVar(key: 'artifactoryPassword', secretName: 'credrl', secretKey: 'password')
+  secretEnvVar(key: 'artifactoryUser', secretName: 'credrl', secretKey: 'username')
   ],
   imagePullSecrets:
   ['regcred']

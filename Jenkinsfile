@@ -46,8 +46,9 @@ podTemplate(containers: [
             }
             if ((sh (script: 'git log -1 --pretty=%cn ${GIT_COMMIT}', returnStdout: true).trim()) == "branko"){
               script {
-              currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
-              sleep(1)   // Interrupt is not blocking and does not take effect immediately.
+              echo "author = ${env.GIT_AUTHOR}"
+              currentBuild.result = 'ABORTED'
+              error("Aborting the build.")
               }
             }
         }

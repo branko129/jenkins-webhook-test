@@ -47,7 +47,7 @@ podTemplate(containers: [
             if ((sh (script: 'git log -1 --pretty=%cn ${GIT_COMMIT}', returnStdout: true).trim()) == "branko"){
               script {
               echo "author = ${env.GIT_AUTHOR}"
-              echo "commiter je branko, prekini skriptu"
+              echo "commiter je branko , prekini skriptu"
               currentBuild.result = 'ABORTED'
               error("Aborting the build.")
               }

@@ -13,10 +13,19 @@ podTemplate(containers: [
         ttyEnabled: true,
         resourceLimitCpu: '100m',
         resourceLimitMemory: '200Mi'
+    ),
+    containerTemplate(
+        name: 'crio',
+        image: 'crio',
+        command: 'cat',
+        ttyEnabled: true,
+        resourceLimitCpu: '100m',
+        resourceLimitMemory: '200Mi'
     )
   ],
   volumes: [
-       hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')
+       hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock'),
+       hostPathVolume(hostPath: 'var/run/dockershim.sock', mountPath: '/var/run/docker.sock')
   ],
   envVars: [
   secretEnvVar(key: 'uname', secretName: 'credrl', secretKey: 'username'),

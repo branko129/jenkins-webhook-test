@@ -16,7 +16,7 @@ podTemplate(containers: [
     )
   ],
   volumes: [
-       hostPathVolume(hostPath: '/var/run/dockershim.sock', mountPath: '/var/run/docker.sock')
+       hostPathVolume(hostPath: '/var/run/dockershim.sock', mountPath: '/var/run/dockershim.sock')
   ],
   envVars: [
   secretEnvVar(key: 'uname', secretName: 'credrl', secretKey: 'username'),

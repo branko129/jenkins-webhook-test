@@ -45,6 +45,19 @@ podTemplate(containers: [
             echo "commit message = ${env.GIT_COMMIT_MSG}"
             }
         }
+         stage('Build docker image') {
+               script{
+               latestTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
+               latestHash = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
+               env.BUILD_VERSION = latestTag
+               env.HASH_TAG = latestHash
+               echo "env-BUILD_VERSION = ${env.BUILD_VERSION}"
+               echo "env-HASH_TAG = ${env.HASH_TAG}"
+               }
+                container('docker') {
+                    sh "docker build --rm -t branko129/test-image:$BUILD_NUMBER ."
+                    }
+            }
         stage('Print something'){
            script{
               echo "Job successful"
